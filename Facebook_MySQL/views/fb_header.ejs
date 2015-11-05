@@ -1,0 +1,38 @@
+<nav class="navbar-custom navbar-fixed-top">
+	<div class="container">
+
+	<form class="navbar-form navbar-left" role="searchPeople" style="margin-left: -60px;">
+		<a class="nav navbar-nav navbar-form" href="/homePage">
+			<img alt="Logo" src="../images/fb_icon.png" width="35">
+		</a>
+		<div class="form-group" >
+			<input type="text" class="form-control" name="search" placeholder="Search Facebook" ng-model= "searchPerson" style="width:400px;" ng-required="true">
+		</div>
+		<button type="submit" class="btn btn-default navbar-btn" ng-click="search()">
+		<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+	</form>
+	<ul class="nav navbar-nav navbar-form" style="margin-right:-110px">
+		<li>
+			<a href="/profilePage">{{sessionVar}}</a>
+		</li>
+		<li class="active">
+			<a href="/homePage">Home</a>
+		</li>
+		<li>
+			<a href="/editProf">Settings</a>
+		</li>
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+          	<ul class="dropdown-menu">
+	            <li><a href="#">Create Group</a></li>
+	            <li><a href="#">Settings</a></li>
+	            <li><a href="#">LogOut</a></li>
+          	</ul>
+        </li>
+	</ul>
+	<a href="/signOut">
+		<button type="submit" class="btn btn-default navbar-btn navbar-right">Sign Out</button></a>
+	</div><!-- /.container-->
+	</nav>
+	<br>
+	<br>

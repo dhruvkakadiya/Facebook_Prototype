@@ -1,0 +1,100 @@
+<html>
+  <head>
+  	<link rel="icon" type="image/png" href='/images/fb_icon.png'/>
+    <title>Facebook Signup</title>
+    <meta name="Dhruv Kakadiya" content="Facebook" /><meta name="facebook,social media,fb" content="HTML, CSS, AngularJS, NodeJS, JavaScript" /><meta charset="UTF-8" />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+    
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  </head>
+  <body>
+  <form action="/afterSignUp" method="post" class="afterSignUp">
+    <!-- This panel is for login -->
+    
+    <div class="panel panel-primary">
+      <!-- Default panel contents -->
+    	<div class="panel-heading">
+    		<div class="row">
+    			<div class="col-md-6" class="form-group  headingDiv">
+	        		<h3>Facebook Signup</h3>
+	        	</div>
+	        	<div class="col-md-6" class="form-group  loginDiv">
+	        	<form action="/afterSignIn" method="post" class="afterSignIn">
+				    <!-- This panel is for login -->  
+				    <div class="panel panel-primary">
+				      <!-- Default panel contents -->
+				        <div class="panel-heading">Facebook Login</div>
+				        <div class="panel-body">
+				           <form class="form-horizontal" role="form">
+				           	<div class="row">
+						               <div class="col-md-4" class="form-group  usernameDiv">
+						                      <input type="email" class="form-control" name="inputUsername" id="inputUsername" placeholder="Email Id" required>
+						               </div>
+					                  <div class="col-md-4" class="form-group  passwordDiv">
+					                      <input type="password" class="form-control" name="inputPassword" id="inputPassword" placeholder="Password" required>
+					                  </div>
+					                  <div class="col-md-4" class="form-group  sinDiv">
+					                      <button type="submit" class="btn btn-primary">Sign in</button>
+					                  </div>
+					              </div>
+				              </form>
+				        </div>
+					</div>
+				 </form>	
+				</div>
+	        </div>
+    	</div>
+        
+        <div class="panel-body">
+           <form class="form-horizontal" role="form">
+           		<div class="row">
+			        <div class="col-md-2" class="form-group  q1Div">
+			        	<b>It's free and always will be.</b>
+			    	</div>
+		    	</div>
+		    	<br>
+           		<div class="row">
+		               <div class="col-md-2" class="form-group  fnameDiv">
+		                      <input type="text" class="form-control" name="fname" id="fname" placeholder="First Name" autocomplete="off" required>
+		                      <br>
+		               </div>
+	                  
+	                  <div class="col-md-2" class="form-group  lnameDiv">
+	                      <input type="text" class="form-control" name="lname" id="lname" placeholder="Last Name" required><br>
+	                  </div>
+	            </div>
+	            <div class="row">	
+		               <div class="col-md-4" class="form-group  emailDiv">
+		                      <input type="email" class="form-control" name="emailid" id="emailid" placeholder="Email Id" autocomplete="off" required><br>
+		               </div>
+		        </div>
+		        <div class="row">
+	                  <div class="col-md-4" class="form-group  passwordDiv">
+	                      <input type="password" class="form-control" name="inpassword" id="inpassword" placeholder="New Password" required><br>
+	                  </div>
+	            </div>
+
+	            <div class="row">
+	                  <div class="col-md-4" class="form-group  inrepasswordDiv">
+	                      <input type="password" class="form-control" name="inrepassword" id="inrepassword" placeholder="Re-enter password" required><br>
+	                  </div>
+	            </div>
+	            <div class="row">
+		            <div class="col-md-4" class="form-group terms">
+		            	<font size="1">By clicking Sign Up, you agree to our Terms and that you have read our Data Policy, including our Cookie Use.</font>
+		            </div>
+		        </div>
+		        <div class="row">
+	              	<div class="col-md-4" class="form-group signUp">
+	                  	<button type="submit" class="btn btn-primary">Sign Up</button>
+	              	</div>
+	            </div>
+              </form>
+        </div>
+	</div>
+ </form>	
+ </body>
+ 
+</html>

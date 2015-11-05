@@ -1,0 +1,150 @@
+body {
+  
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+div.bs-example
+{
+	margin: 0 auto;
+	margin-left:5%;
+	width: 20%;
+	float : left;
+}
+
+div.product_content
+{
+	margin-left:5%;
+	width:63%;
+}
+
+div.product_content h3 
+{
+	margin :0;
+	margin-bottom:4%;
+}
+
+div.rows-container div.span3
+{
+	margin-right:5%;
+	border: 1px black solid;
+	padding: 2%;
+	margin-bottom: 5%;
+}
+div.rows-container div.span3 p
+{
+	width:68%;
+}
+
+input.quantity
+{
+	width: 10%;
+}
+
+form.afterSignIn
+{
+	width:420px;
+	margin:0 auto;
+	margin-top: 8%;
+}
+
+div.col-sm-10
+{
+	margin-bottom:10px;
+}
+
+.usernameDiv
+{
+	margin-left: 10%;
+	width:100%;
+}
+
+div.usernameDiv div.col-sm-10
+{
+	padding-left:0px;
+}
+
+.signIn
+{
+	margin-left : 10%;
+}
+
+.signuplink
+{
+	margin-left : 35%;
+}
+
+#if-part
+{
+	color : red;
+	margin-left: 26%;
+}
+
+#if-part1
+{
+	color : red;
+	margin-left: 45%;
+	margin-top : 4%;
+}
+
+.signupPage
+{
+	width: 51%;
+	margin: 0 auto;
+	margin-top : 4%;
+}
+
+.addCatalog
+{
+	float: left;
+	border: 1px solid black;
+	margin-left: 10%;	
+}
+
+.labelProduct
+{
+	margin-left: 16px;
+	margin-top: 10px;
+}
+.category_list
+{
+	clear : left;
+}
+
+.category_list1
+{
+	clear: right;
+	margin-top: 10px;
+	margin-left: 20px;
+}
+
+.common_css
+{
+	clear : both;
+	float: left;	
+}
+
+.checkoutBody
+{
+	margin: 0 auto;
+	width: 900px;
+	margin-top: 8%;
+}
+
+.lastLogin
+{
+	font-weight: 100;
+	font-size: 14px;
+}
+
+.btn.sharp {
+  border-radius:0;
+}
+
+.navbar-custom {
+    color: #FFFFFF;
+    background-color: #24478F;
+}

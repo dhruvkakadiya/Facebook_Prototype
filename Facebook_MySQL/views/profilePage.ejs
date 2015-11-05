@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="" ng-init = "init()" ng-controller="showProfile">
+<head>
+	<% include head.ejs %>
+</head>
+ <body>
+	<nav class="navbar-custom navbar-fixed-top">
+	<div class="container">
+
+	<form class="navbar-form navbar-left" action="/verifySearch" role="searchPeople" method="post" style="margin-left: -60px;">
+		<a class="nav navbar-nav navbar-form" href="/homePage">
+			<img alt="Logo" src="../images/fb_icon.png" width="35">
+		</a>
+		<div class="form-group" >
+			<input type="text" class="form-control" name="search" placeholder="Search Facebook" style="width:400px;">
+		</div>
+		<button type="submit" class="btn btn-default navbar-btn">
+		<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+	</form>
+	<ul class="nav navbar-nav navbar-form" style="margin-right:-110px">
+		<li>
+			<a href="/profilePage"><%= profile.fname %></a>
+		</li>
+		<li class="active">
+			<a href="/homePage">Home</a>
+		</li>
+		<li>
+			<a href="/editProf">Settings</a>
+		</li>
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+          	<ul class="dropdown-menu">
+	            <li><a href="#">Create Group</a></li>
+	            <li><a href="#">Settings</a></li>
+	            <li><a href="#">LogOut</a></li>
+          	</ul>
+        </li>
+	</ul>
+	<a href="/signOut">
+		<button type="submit" class="btn btn-default navbar-btn navbar-right">Sign Out</button></a>
+	</div><!-- /.container-->
+	</nav>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div class="row"><div class="col-md-5"></div>
+	<div class="col-md-4">
+	<h1><%= profile.fullName %></h1>
+	</div><div class="col-md-3"></div>
+	</div>
+	<br>
+<div class="row">
+	<div class="col-md-4">
+		<ul>
+			<li class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-book" aria-hidden="true">
+			</span> Studied at <b><%= profile.schoolName %></b></li>
+			<li class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-lock" aria-hidden="true">
+			</span><b> <%= profile.position %></b> at <b><%= profile.company %></b></li>
+			<li class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-home" aria-hidden="true">
+			</span>  Lives in <b><%= profile.city %></b></li>
+			<br>
+			<br>
+			<li class="list-group-item list-group-item-info">
+			<h4><b>Friends ({{conCount}}):</b></h4></li>
+		</ul>
+			
+		<ul ng-repeat="x in friends">
+			<li class="list-group-item list-group-item-info"><a href="#" ng-click="getprofile(x)">{{ x }}</a></li>
+		</ul>
+			<!--<li class="list-group-item list-group-item-info" id="connections">
+
+			</li>-->
+		
+	</div>
+
+	<div class="col-md-4">
+		<ul>
+			<li class="list-group-item list-group-item-info"> <b>TV Show:</b> <br><%= profile.tvshow %></li>
+			<li class="list-group-item list-group-item-info"> <b>Music: </b><br><%= profile.music %></li>
+			<li class="list-group-item list-group-item-info"> <b>Sport: </b><br><%= profile.sport %></li>
+		</ul>
+	</div>
+
+	<div class="col-md-4">
+		<ul>
+			<li class="list-group-item list-group-item-info"> <b>Summary:</b> <br><%= profile.summary %></li>
+		</ul>
+	</div>
+</div>
+<script>
+function showProfile($scope,$http,$location){
+        var iUserId;
+        $http({
+		method: 'POST',
+		url: '/connsNInvs',
+		data: {"userId":sessionStorage.userId}
+	}).success(function(response){
+		if(response.status == "Success") {
+			$scope.invCount = response.iCount;
+			if (response.iCount > 0) {
+				$scope.fullName = response.iFullName;
+				iUserId = response.iUserId;
+				$scope.myFunc3 = function(bool) {return "true"; };
+			}
+			else {
+				$scope.fullName = "No invitations to display.";
+				$scope.myFunc3 = function(bool) {return "false"; };
+			}
+		
+			$scope.conCount = response.cCount;
+			$scope.friends = [];
+			if (response.cCount > 0) {
+				var cNameList, cFullNames = "";
+				cNameList = (response.cFullNames).split("@#$&*");
+				for (var i=0; i<cNameList.length; i++) {
+					cFullNames += cNameList[i];
+					if(i != cNameList.length - 1) {
+						cFullNames += "<br>";
+					}
+				}
+				$scope.friends = cNameList;
+				document.getElementById("connections").innerHTML = cFullNames;
+			}
+			else {
+				document.getElementById("connections").innerHTML = "No connections to display.";
+			}
+		}
+	}).error(function(error){
+		alert("Error in connections");
+	});
+
+	$scope.getprofile = function(name){
+		
+		sessionStorage.getname = name;
+		alert("Get profile of "+sessionStorage.getname);
+		$http({
+				method: 'GET',
+				url: '/getProfilePage',
+				data: {"fid": sessionStorage.getname}
+			})
+			window.location = '/getProfilePage';
+	};
+}
+</script>
