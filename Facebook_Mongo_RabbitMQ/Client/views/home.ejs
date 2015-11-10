@@ -1,0 +1,156 @@
+<html ng-app="" ng-controller="mainPage">
+  <head>
+  	<link rel="icon" type="image/png" href='/images/fb_icon.png'/>
+    <title>Facebook - Log In or Sign Up</title>
+    <meta name="Dhruv Kakadiya" content="Facebook" /><meta name="facebook,social media,fb" content="HTML, CSS, AngularJS, NodeJS, JavaScript" /><meta charset="UTF-8" />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+    <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  </head>
+  <body>
+
+ 	<div class="panel panel-primary">
+	      <!-- Default panel contents -->
+		<div class="panel-heading">
+			<div class="row">
+				<div class="col-md-2" class="form-group  emptyDiv">
+		        </div>
+
+	    		<div class="col-md-3" class="form-group  headingDiv">
+		        	<h2><b>facebook</b></h2>
+		        </div>
+
+		        <div class="col-md-7" class="form-group  loginDiv">
+		        <form class="form-horizontal" action="/home" role="form" method="post">
+		        	<br>
+		           		<div class="row">
+			               	<div class="col-md-5" class="form-group  usernameDiv">
+			                    <input type="email" class="form-control" name="inputUsername" id="inputUsername" placeholder="Email Id" required>
+			               	</div>
+		                  	
+		                  	<div class="col-md-5" class="form-group  passwordDiv">
+		                      	<input type="password" class="form-control" name="inputPassword" id="inputPassword" placeholder="Password" required>
+		                  	</div>
+		                  	<div class="col-md-2" class="form-group  sinDiv">
+		                      	<button type="submit" class="btn btn-default">Log in</button>
+		                  	</div>
+		              	</div>		
+				</form>
+			</div>
+			</div>
+    	</div>
+    </div>
+    
+    <form action="/afterSignUp" method="post" class="afterSignUp">
+	    <!-- This panel is for SignUp -->
+	    
+	    <div class="row">
+
+	    	<div class="col-md-5" class="form-group e1Div">
+	    		<div class="col-md-1">
+	    		</div>
+	    		<div class="col-md-11">
+	    			<h3><b>Connect with friends and the world around you on Facebook.</b></h3>
+	    			<br>	
+	    		</div>
+
+	    		<div class="col-md-5">
+	    		</div>
+
+	    		<div class="col-md-7">
+	    			<a href="https://play.google.com/store/apps/details?id=com.facebook.katana&feature=search_result">
+	    		<img src="./images/fb_mobile.png"></a>
+	    		</div> 
+	    	</div>	
+    		
+    		<div class="col-md-2" class="form-group emptyDiv">
+	    		
+	    	</div>
+
+    		<div class="col-md-5" class="form-group  headingDiv">
+    			
+
+        <div class="panel-body">
+           <form class="form-horizontal" role="form">
+           			<div class="row">
+	    				<div class="col-md-5" class="form-group  supDiv">	
+		        			<h3><b>Sign Up</b></h3>
+		        		</div>
+	        		</div>
+	        		<div class="row">
+				        <div class="col-md-5" class="form-group  q1Div">
+				        	<b>It's free and always will be.</b>
+				    	</div>
+			    	</div>
+		    	<br>
+           		<div class="row">
+		               <div class="col-md-4" class="form-group  fnameDiv">
+		                      <input type="text" class="form-control" name="fname" id="fname" placeholder="First Name" autocomplete="off" required>
+		                      <br>
+		               </div>
+	                  
+	                  <div class="col-md-4" class="form-group  lnameDiv">
+	                      <input type="text" class="form-control" name="lname" id="lname" placeholder="Last Name" required><br>
+	                  </div>
+	            </div>
+	            <div class="row">	
+		               <div class="col-md-8" class="form-group  emailDiv">
+		                      <input type="email" class="form-control" name="emailid" id="emailid" placeholder="Email Id" autocomplete="off" required><br>
+		               </div>
+		        </div>
+		        <div class="row">
+	                  <div class="col-md-8" class="form-group  passwordDiv">
+	                      <input type="password" class="form-control" name="inpassword" id="inpassword" ng-model="inpass" placeholder="New Password" required><br>
+	                  </div>
+	            </div>
+	            <div class="row">
+		            <div class="col-md-8" class="form-group terms">
+		            	<font size="1">By clicking Sign Up, you agree to our Terms and that you have read our Data Policy, including our Cookie Use.</font>
+		            </div>
+		        </div>
+		        <br>
+		        <div class="row">
+	              	<div class="col-md-8" class="form-group signUp">
+	                  	<button type="submit" class="btn btn-primary">Sign Up</button>
+	              	</div>
+	            </div>
+              </form>
+        </div>
+	</div>
+	</div>
+ </form>
+
+ <script>
+	function mainPage($scope,$http,$location){
+		$scope.signIn = function(){
+	    	$http({
+	            method: 'POST',
+	            url: '/',
+	            data: {"email1": $scope.email1, "pwd1": $scope.pwd1}
+	         }).success(function(response){
+	         	if(response.login == "Success") {
+	         		sessionStorage.userEmail = response.userEmail;
+	         		sessionStorage.userId = response.userId;
+					window.location = '/homePage';
+				}
+				else
+					alert(response.login);
+	         	}).error(function(error){
+	            	alert("error");
+				});
+		};
+		
+		$scope.signUp = function(){
+			if($scope.inpass!=$scope.inrepass) {
+				alert("Both password fields are not same.");
+				window.location = '/';
+			}
+		}
+	}
+</script>
+
+ </body>
+ 
+</html>

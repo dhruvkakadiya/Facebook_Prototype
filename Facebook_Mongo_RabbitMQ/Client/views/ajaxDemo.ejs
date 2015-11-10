@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <title>Ajax Demo</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  </head>
+  <body>
+    <br>
+    <br>
+    <label id="lable1"> <%= data.fname%> </label>
+    <br>
+    <br>
+    <label id="lable2"> <%= data.lname%> </label>
+    <br>
+    <br>
+    <input type="text" name="role" id="role" placeholder="role" ></input>
+    <br>
+    <br>
+    <button type="submit" onclick="AjaxPostCall()">Get Role</button>
+ </body>
+ <script>
+ 	function AjaxPostCall() {
+ 	
+ 		var data = {"key":"role"};
+ 		
+ 		$.ajax({
+ 		
+ 			url:"/ajaxDemo",
+ 			data:JSON.stringify(data),
+ 			type:'POST',
+ 			contentType: 'application/json',
+ 			
+ 			
+ 			success: function (result) {
+ 				 alert(result);
+    			 var insert = document.getElementById("role");
+    			 insert.value = result;
+   			},
+
+    		error: function () {  
+   				alert("error");
+    		} 
+ 		});
+ 	}
+ </script>
+</html>

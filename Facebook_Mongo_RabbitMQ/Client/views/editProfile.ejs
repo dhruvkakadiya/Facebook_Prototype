@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="" ng-controller="editProfile">
+<head>
+	<% include head.ejs %>
+</head>
+ <body>
+	<nav class="navbar-custom navbar-fixed-top">
+	<div class="container">
+
+	<form class="navbar-form navbar-left" action="/verifySearch" role="searchPeople" method="post" style="margin-left: -60px;">
+		<a class="nav navbar-nav navbar-form" href="/homePage">
+			<img alt="Logo" src="../images/fb_icon.png" width="35">
+		</a>
+		<div class="form-group" >
+			<input type="text" class="form-control" name="search" placeholder="Search Facebook" style="width:400px;">
+		</div>
+		<button type="submit" class="btn btn-default navbar-btn">
+		<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+	</form>
+	<ul class="nav navbar-nav navbar-form" style="margin-right:-110px">
+		<li>
+			<a href="/profilePage"><%= profile.fname %></a>
+		</li>
+		<li class="active">
+			<a href="/homePage">Home</a>
+		</li>
+		<li>
+			<a href="/editProf">Settings</a>
+		</li>
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+          	<ul class="dropdown-menu">
+	            <li><a href="#">Create Group</a></li>
+	            <li><a href="#">Settings</a></li>
+	            <li><a href="#">LogOut</a></li>
+          	</ul>
+        </li>
+	</ul>
+	<a href="/signOut">
+		<button type="submit" class="btn btn-default navbar-btn navbar-right">Sign Out</button></a>
+	</div><!-- /.container-->
+	</nav>
+	<br>
+	<br>
+<div class="well"><h2>Personal information:</h2>
+
+<form class="form-horizontal" action="/updatePersonal" role="form" method="post">
+<div class="row">
+
+<div class="col-md-6">
+<h3>Work:</h3>
+<div class="input-group">
+  <span class="input-group-addon" ng-model="basic-addon1" style="width:150px">Company</span>
+  <input type="text" ng-model="cmpny" name="cmpny" class="form-control" value="<%= profile.company %>" aria-describedby="basic-addon1" style="width:250px" >
+</div>
+<div class="input-group">
+  <span class="input-group-addon" ng-model="basic-addon1" style="width:150px">Position</span>
+  <input type="text" ng-model="position" name="position" class="form-control" value="<%= profile.position %>" aria-describedby="basic-addon1" style="width:250px" >
+</div>
+<div class="input-group">
+ <span class="input-group-addon" ng-model="basic-addon1" style="width:150px">City/Town</span>
+   <input type="text" ng-model="city" name="city" value="<%= profile.city %>" aria-describedby="basic-addon1" style="width:250px" class="form-control">
+</div>
+<div class="input-group">
+ <span class="input-group-addon" ng-model="basic-addon1" style="width:150px">Start Year</span>
+   <input type="text" ng-model="wsy" name="wsy" aria-describedby="basic-addon1" style="width:250px" class="form-control" value="<%= profile.work_syear %>" >
+</div>
+<div class="input-group">
+ <span class="input-group-addon" ng-model="basic-addon1" style="width:150px">End Year</span>
+   <input type="text" ng-model="wey" name="wey" aria-describedby="basic-addon1" style="width:250px" class="form-control" value="<%= profile.work_eyear %>" >
+</div>
+</div><!-- /.col-md-6-->
+
+<div class="col-md-6">
+<h3>High School:</h3>
+<div class="input-group">
+  <span class="input-group-addon" ng-model="basic-addon1" style="width:150px">School Name</span>
+  <input type="text" ng-model="sname" name="sname" class="form-control" value="<%= profile.schoolName %>" aria-describedby="basic-addon1" style="width:250px" >
+</div>
+<div class="input-group">
+  <span class="input-group-addon" ng-model="basic-addon1" style="width:150px">Field of Study</span>
+  <input type="text" ng-model="sfield" name="sfield" class="form-control" value="<%= profile.sfield %>" aria-describedby="basic-addon1" style="width:250px" >
+</div>
+<div class="input-group">
+ <span class="input-group-addon" ng-model="basic-addon1" style="width:150px">Start Year</span>
+   <input type="text" ng-model="hsy" name="hsy" aria-describedby="basic-addon1" style="width:250px" value="<%= profile.school_syear %>" class="form-control">
+</div>
+<div class="input-group">
+ <span class="input-group-addon" ng-model="basic-addon1" style="width:150px">End Year</span>
+   <input type="text" ng-model="hey" name="hey" aria-describedby="basic-addon1" style="width:250px" value="<%= profile.school_eyear %>" class="form-control">
+</div>
+
+</div><!-- /.col-md-6-->
+<div>&nbsp</div>
+
+</div><!-- Row -->
+
+<br>
+<button type="submit" class="btn btn-primary" ng-click="updatePersonal()">Save Changes</button>
+</form>
+
+<br><br>
+
+<h2>Interests:</h2>
+<form class="form-horizontal" action="/updateInterests" role="form" method="post">
+<div class="row">
+
+<div class="col-md-4">
+	<h3>TV Shows:</h3>
+  	<textarea ng-model="tvshow" name="tvshow" class="form-control" rows="2"><%= profile.tvshow %></textarea>
+</div>
+
+<div class="col-md-4">
+	<h3>Music:</h3>
+  	<textarea ng-model="music" name="music" class="form-control" rows="2"><%= profile.music %></textarea>
+</div>
+
+<div class="col-md-4">
+	<h3>Sport:</h3>
+  	<textarea ng-model="sport" name="sport" class="form-control" rows="2"><%= profile.sport %></textarea>
+</div>
+<div>&nbsp</div>
+</div><!-- /.row-->
+<button type="submit" class="btn btn-primary" ng-click="updateInterests()">Save Changes</button>
+</form>
+
+<h2>Summary:</h2>
+<form class="form-horizontal" action="/updateSummary" role="form" method="post">
+  	<textarea class="form-control" rows="2" name="summary" ng-model="summary"><%= profile.summary %></textarea>
+  	<br>
+	<button type="submit" class="btn btn-primary" ng-click="updateSummary()">Save Changes</button>
+<div>&nbsp</div>
+</form>
+
+</div><!-- /.controller-->
+ 
+<script>
+function editProfile($scope,$http,$location){
+	
+	alert("hiii");
+	/*
+	$http({
+			method: 'POST',
+			url: '/homeData',
+			data: {"userId":sessionStorage.userId}
+		}).success(function(res){
+			if(res.status == "Success") {
+				var school = res.school;
+				var company = res.company;
+				$scope.fullName = res.fullName;
+				$scope.company = res.company;
+				$scope.position = res.position;
+				$scope.city = res.city;
+				$scope.work_syear = res.work_syear;
+				$scope.work_eyear = res.work_eyear;
+				$scope.schoolName = res.schoolName;
+				$scope.sfield = res.sfield;
+				$scope.school_syear = res.school_syear;
+				$scope.school_eyear = res.school_eyear;
+				$scope.tvshow = res.tvshow;
+				$scope.music = res.music;
+				$scope.sport = res.sport;
+				console.log(res.music);
+				if (res.summary == null) { $scope.summary = "No summary to display"; }
+				else { $scope.summary = res.summary; }		
+			}
+		}
+		}).error(function(error){
+			alert("Home page error");
+		});
+		
+	$scope.updateEdu = function() {
+		alert("hi");
+		$http({
+			method: 'POST',
+			url: '/insertEducation',
+			data: {}
+		}).success(function(response) {	           
+			if(response.status=="Success"){
+				window.location='/login';
+			}
+			else {
+				$scope.output="Please enter valid Email and password";
+				alert("Please enter valid Email and password");
+			}				
+		}).error(function(error){
+			$scope.output="Please enter valid Email and password";
+			alert("Please enter valid Email and password");
+		});
+	};
+	*/
+	$scope.updateInterests = function() {
+		alert("Interests are updated");
+		$http({
+			method: 'GET',
+			url: '/updateInterests',
+			data: {"tvshow":$scope.tvshow,
+					"music":$scope.music,
+					"sport":$scope.sport
+				}
+		}).success(function(response) {	           
+			
+		});
+	};
+	/*
+	$scope.updateSummary = function() {
+		alert("Summary is updated");
+		$http({
+			method: 'POST',
+			url: '/updateSummary',
+			data: {"summary":$scope.summary}
+		}).success(function(response) {	           
+			if(response.Status=="Success"){
+				window.location='/editProfile';
+			}
+			else {
+				$scope.output="Please enter summary1";
+				alert("Please enter summary1");
+			}				
+		}).error(function(error){
+			$scope.output="Please enter summary2";
+			alert("Please enter summary2");
+		});
+	};
+	
+	$scope.home=function(){
+		window.location='/login';
+	}
+	
+	$scope.connections=function(){
+		window.location='/connect';
+	}
+	
+	$scope.signOut= function(){
+		$http({
+    		method: 'POST',
+    		url: '/signOut',
+			data: {"emailId": $scope.emailId}
+	    }).success(function(response){	 
+			if(response.Status=="Logged out successfully"){         
+				alert("Logged out Successfully");
+				window.location='/'
+			}
+		});
+	};*/
+}
+  </script>           
+  </body>
+  </html>

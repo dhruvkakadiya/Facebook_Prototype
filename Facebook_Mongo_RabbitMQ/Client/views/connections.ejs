@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html ng-app="" ng-controller="conns">
+<head>
+    <% include head.ejs %>
+</head>
+<body>
+
+<nav class="navbar-custom navbar-fixed-top">
+	<div class="container">
+
+	<form class="navbar-form navbar-left" action="/verifySearch" role="searchPeople" method="post" style="margin-left: -60px;">
+		<a class="nav navbar-nav navbar-form" href="/homePage">
+			<img alt="Logo" src="../images/fb_icon.png" width="35">
+		</a>
+		<div class="form-group" >
+			<input type="text" class="form-control" name="search" placeholder="Search Facebook" style="width:400px;">
+		</div>
+		<button type="submit" class="btn btn-default navbar-btn">
+		<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+	</form>
+	<ul class="nav navbar-nav navbar-form" style="margin-right:-110px">
+		<li>
+			<a href="/profilePage">Chitrang</a>
+		</li>
+		<li class="active">
+			<a href="/homePage">Home</a>
+		</li>
+		<li>
+			<a href="/editProf">Settings</a>
+		</li>
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+          	<ul class="dropdown-menu">
+	            <li><a href="#">Create Group</a></li>
+	            <li><a href="#">Settings</a></li>
+	            <li><a href="#">LogOut</a></li>
+          	</ul>
+        </li>
+	</ul>
+	<a href="/signOut">
+		<button type="submit" class="btn btn-default navbar-btn navbar-right">Sign Out</button></a>
+	</div><!-- /.container-->
+	</nav>
+	<br>
+	<br>
+	<br>
+<br>
+<br>
+	<div class="col-md-2">
+		<ul class="nav nav-tabs nav-stacked">
+		  <li role="presentation"><a href="/homePage">
+		  	<span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
+		   Newsfeed</a></li>
+		  
+		  <li role="presentation"><a href="#" ng-click="groups()">
+		  	<span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+		   Groups</a></li>
+		  
+		  <li role="presentation" class="active"><a href="#" ng-click="connections()">
+		  	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+		   Friends <span class="badge"></span></a></li>
+		</ul>	
+	</div>
+
+	<div class="col-md-1">
+	
+	</div>
+
+	<div class="col-md-5">
+		<h2>Friend Requests ({{invCount}}):</h2>
+		<p id="invitations">
+			{{fullName}}
+			<button type="submit" class="btn btn-primary" ng-click="accept()" ng-show="myFunc3()">Accept</button>
+			<p id="msg"></p>
+		</p>
+
+		<h2>Friends ({{conCount}}):</h2>
+		<li class="list-group-item list-group-item-info" id="connections">
+
+		</li>
+	</div>
+
+	<div class="col-md-4">
+	
+	</div>
+
+<script>
+    function conns($scope,$http,$location){
+            var iUserId;
+            $http({
+			method: 'POST',
+			url: '/connsNInvs',
+			data: {"userId":sessionStorage.userId}
+		}).success(function(response){
+			if(response.status == "Success") {
+				$scope.invCount = response.iCount;
+				if (response.iCount > 0) {
+					$scope.fullName = response.iFullName;
+					iUserId = response.iUserId;
+					$scope.myFunc3 = function(bool) {return "true"; };
+				}
+				else {
+					$scope.fullName = "No friend request to display.";
+					$scope.myFunc3 = function(bool) {return "false"; };
+				}
+			
+				$scope.conCount = response.cCount;
+				if (response.cCount > 0) {
+					var cNameList, cFullNames = "";
+					cNameList = (response.cFullNames).split("@#$&*");
+					for (var i=0; i<cNameList.length; i++) {
+						cFullNames += cNameList[i];
+						if(i != cNameList.length - 1) {
+							cFullNames += "<br>";
+						}
+					}
+					document.getElementById("connections").innerHTML = cFullNames;
+				}
+				else {
+					document.getElementById("connections").innerHTML = "No friend to display.";
+				}
+			}
+		}).error(function(error){
+			alert("Error in connections");
+		});
+		
+		$scope.accept = function() {
+			$http({
+			method: 'POST',
+			url: '/acceptInv',
+			data: {"iUserId": iUserId,"userId":sessionStorage.userId}
+		}).success(function(response){
+			if(response.status == "Connected") {
+				$scope.myFunc3 = function(bool) {return "false"; };
+				document.getElementById("msg").innerHTML = "Request Accepted";
+			}
+		}).error(function(error){
+			alert("Error in Requests");
+		});
+		};            
+    }
+</script>
+</body>
+</html>

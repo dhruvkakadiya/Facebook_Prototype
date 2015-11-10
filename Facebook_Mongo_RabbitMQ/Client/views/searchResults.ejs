@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html ng-app="" ng-init = "init()" ng-controller="searchContrl">
+<head>
+	<% include head.ejs %>
+</head>
+<body>
+	<% include fb_header.ejs %>
+	<br>
+	<br>
+
+		<div class="col-md-2">
+			<br>
+			<ul class="nav nav-tabs nav-stacked">
+			  <li role="presentation"><a href="/homePage">
+			  	<span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
+			   Newsfeed</a></li>
+			  
+			  <li role="presentation"><a href="#" ng-click="groups()">
+			  	<span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+			   Groups</a></li>
+			  
+			  <li role="presentation"><a href="#" ng-click="connections()">
+			  	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+			   Friends <span class="badge"></span></a></li>
+			</ul>	
+		</div>
+
+	<div class="col-md-1">
+	
+	</div>
+
+	<div class="col-md-5">
+		<center><h2>Search Results</h2></center>
+		<p id="members">
+			<li class="list-group-item list-group-item-info">
+			<a ng-click="getprofile()" href="#">{{fullName}}</a>
+			<button type="submit" class="btn btn-primary" ng-click="connect()" ng-disabled="myFunc1()" id="msg" ng-show="myFunc2()">Connect</button>
+			</li>
+		</p>
+	</div>
+
+	<div class="col-md-4">
+	
+	</div>
+
+<script>
+    function searchContrl($scope,$http,$location){
+    	var cUserId;
+		$http({
+			method: 'POST',
+			url: '/verifySearch',
+			data: {"search": sessionStorage.searchPer}
+		}).success(function (response){
+			if(response.search == "Success") {
+				alert("Got success!");
+				$scope.fullName = response.fullName;
+				$scope.myFunc1 = function(bool) { return response.cBool; };
+				cUserId = response.cUserId;
+				$scope.searchEmail = response.cUserId;
+				console.log("hello searched email id is: "+$scope.searchEmail);
+				$scope.myFunc2 = function(bool) {return "true"; };
+			}
+			else {
+				//alert(response.errMsg);
+				document.getElementById("msg").innerHTML = "No result found";
+				$scope.myFunc2 = function(bool) {return "false"; };
+			}
+		}).error(function(error){
+			alert("this is the error");
+		});
+		
+		$scope.connect = function() {
+			$scope.myFunc1 = function(bool) { return true; };
+			$http({
+				method: 'POST',
+				url: '/sendInv',
+				data: {"cUserId": cUserId,"userId":sessionStorage.userId}
+			}).success(function(response){
+				if(response.connect != undefined ) {
+					//alert("Request Sent");
+					document.getElementById("msg").innerHTML = response.connect;
+				}
+				else {
+					alert("Some Error");
+				}
+			}).error(function(error){
+				alert("error");
+			});
+		};
+
+		$scope.getprofile = function() {
+			$http({
+				method: 'GET',
+				url: '/getProfilePage',
+				data: {"emailid": $scope.searchEmail}
+			})
+			window.location = '/getProfilePage';
+		};
+
+    }
+</script>
+</body>
+</html>
